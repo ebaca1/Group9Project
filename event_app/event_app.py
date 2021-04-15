@@ -11,7 +11,7 @@ from forms import RegisterForm, LoginForm, RegisterForm, LoginForm, CommentForm
 import bcrypt
 
 # SETUP #
-
+#Pulled this directly from flask_app tutorial. Edit/delete what needs to be fixed
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 app.config['SECRET_KEY'] = 'SE3155'
