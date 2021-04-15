@@ -63,3 +63,5 @@ def event():
 def profile():
 #insert code
     return render_template("profile.html")
+
+app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True) 
