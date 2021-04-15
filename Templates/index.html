@@ -13,6 +13,41 @@
 		</nav>
 
         <!-- Body -->
-		<h3> To Do</h3>
+	<h1>Events</h1>
+
+        <button type="button">Profile</button>
+        <button type="button">Create Event</button>
+
+        <form>
+            <label>Search: </label>
+            <input type="text" name="search"/>
+        </form>
+
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>{{ event.title }}</td>
+                <td>{{ event.date }}</td>
+                <td>{{ event.description }}</td>
+            </tr>
+        </table>
+
+        <h3>Your Events</h3>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td>{{ event.title }}</td>
+                <td>{{ event.date }}</td>
+                <td>{{ event.actions }}</td>
+            </tr>
+        </table>
     </body>
 </html>
