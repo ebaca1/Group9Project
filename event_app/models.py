@@ -35,3 +35,12 @@ class User(db.Model):
         self.email = email
         self.password = password
         self.registered_on = datetime.date.today()
+
+# Model for RSVP
+class Rsvp(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	event_id = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
+
+	def __init__(self, id, event_id):
+		self.id = id
+		self.event_id = event_id

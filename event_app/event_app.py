@@ -64,4 +64,21 @@ def profile():
 #insert code
     return render_template("profile.html")
 
+# Delete event
+@app.route('/events/delete/<event_id>', methods=['POST'])
+def delete_event(event_id):
+    if session.get('user'):
+        # Retrieve event from database
+        my_event = db.session.query(Event).filter_by(id=event_id).one()
+
+	# Delete the event
+        db.session.delete(my_event)
+        db.session.commit()
+
+    # Go to events page after event is deleted
+	return redirect(url_for('get_events'))
+    else:
+        # User is not in session, redirect to login
+        return redirect(url_for('login'))
+
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True) 
