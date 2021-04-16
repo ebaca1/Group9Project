@@ -104,7 +104,7 @@ def delete_event(event_id):
         db.session.add(my_event)
         db.session.commit()
 
-    # Go to events page after event is deleted
+    # Go to events page after event is RSVP'd
 	return redirect(url_for('get_events'))
     else:
         # User is not in session, redirect to login
