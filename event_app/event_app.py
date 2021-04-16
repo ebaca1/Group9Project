@@ -41,10 +41,22 @@ def index():
     return render_template("index.html")
 
 # CREATE PAGE #
-@app.route('/new')
+@app.route('/new', methods=['GET', 'POST'])
 def new():
-#insert code
-    return render_template("new.html")
+    if session.get('user'):
+        if request.method == 'POST':
+            title = request.form['title']
+            text = request.form['noteText']
+            date = request.form['date']
+            new_record = Note(title, text, date, session['user_id'])
+            db.session.add(new_record)
+            db.session.commit()
+
+            return redirect(url_for('index'))
+        else:
+            return render_template('new.html', user=session['user'])
+    else:
+        return redirect(url_for('login'))
 
 # INDIVIDUAL EVENT (EDIT) PAGE #
 @app.route('/edit/eventID')
