@@ -38,9 +38,7 @@ class User(db.Model):
 
 # Model for RSVP
 class Rsvp(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	event_id = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
+	rsvp_id = db.Column(db.Integer, primary_key=True)
 
-	def __init__(self, id, event_id):
-		self.id = id
-		self.event_id = event_id
+	def __init__(self, rsvp_id):
+		self.rsvp_id = rsvp_id
