@@ -21,6 +21,9 @@
 		<p><strong>Date: </strong>{{ event.date }}</p>
 		<p><strong>Description: </strong>{{ event.desc }}</p>
 
+		<td><a href="{{ url_for('rsvp', event_id=event.id) }}">RSVP</a></td>
+
+
 		<!-- Takes you to /index -->
 		<button type="button">Back</button>
     </body>
