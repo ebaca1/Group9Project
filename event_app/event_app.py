@@ -98,15 +98,21 @@ def edit(id, email):
         return redirect(url_for('index'))
     else:
         a_user = db.session.query(User).filter_by(email=email).one()
-        my_note = db.session.query(Event).filter_by(id=id).one()
+        my_event = db.session.query(Event).filter_by(id=id).one()
 
-        return render_template("edit.html", note=my_note, user=a_user)
+        return render_template("edit.html", index=my_event, user=a_user)
 
 # INDIVIDUAL EVENT PAGE #
 @app.route('/index/eventID')
-def event():
-#insert code
-    return render_template("event.html")
+def event(event_id):
+#check if a user is saved in session
+    if session.get('user'):
+        #retrieve note from database
+        a_event = db.session.query(Event).filter_by(id=event_id).one()
+
+        return render_template("note.html", event = a_event, user = session['user'])
+    else:
+        return render_template("event.html")
 
 # ACCOUNT INFO PAGE #
 @app.route('/profile/userID')
