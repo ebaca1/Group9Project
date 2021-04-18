@@ -8,10 +8,11 @@
 </head>
     <body>
         <div class="navdiv">
+            <!--
             {% if user %}
             <nav>
                 <a href="{{ url_for('index') }}"> Home</a> ||
-                <a href="{{ url_for('get_notes') }}"> My Notes</a> ||
+                <a href="{{ url_for('profile') }}"> Profile</a> ||
                 <a href="{{ url_for('new_note') }}">Add Note</a> ||
                 <a href="{{ url_for('logout') }}">Logout</a>
             </nav>
@@ -21,6 +22,7 @@
                 <a href="{{ url_for('register') }}">Register</a>
             </nav>
             {% endif %}
+            -->
         </div>
         <h1>Welcome {% if user %}{{user}}{% endif %}to the Group 9 Events App!</h1>
 
@@ -49,3 +51,6 @@
                 {{ form.submit }}
             </form>
         </div>
+    <a href="{{ url_for('register') }}"> Don't have an account? Register here.</a>
+    </body>
+    </html>
