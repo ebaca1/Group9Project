@@ -15,7 +15,7 @@
         <!-- Body -->
 		<h3> To Do</h3>
         <p>Event info goes here</p>
-        <form action="{{ url_for('index', event_id=event.id) }}" method="post">
+        <form action="{{ url_for('list', event_id=event.id) }}" method="post">
             <input type="submit" value="List">
         </form>
     </body>

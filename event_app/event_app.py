@@ -115,6 +115,14 @@ def event(event_id):
         return render_template("login.html")
 
 # ACCOUNT INFO PAGE #
+@app.route('/edit/list/<event_id>', methods = ['POST'])
+def list(event_id):
+    listed = request.form['listed']
+    event = db.session.query(Event).filter_by(id=event_id).one()
+    event.listed = True
+    return render_template("index.html")
+
+# ACCOUNT INFO PAGE #
 @app.route('/profile/userID')
 def profile():
 #insert code
