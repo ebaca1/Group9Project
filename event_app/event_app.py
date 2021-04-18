@@ -107,12 +107,12 @@ def edit(id, email):
 def event(event_id):
 #check if a user is saved in session
     if session.get('user'):
-        #retrieve note from database
+        #retrieve event from database
         a_event = db.session.query(Event).filter_by(id=event_id).one()
 
-        return render_template("note.html", event = a_event, user = session['user'])
+        return render_template("event.html", event = a_event, user = session['user'])
     else:
-        return render_template("event.html")
+        return render_template("login.html")
 
 # ACCOUNT INFO PAGE #
 @app.route('/profile/userID')
