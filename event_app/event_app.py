@@ -55,8 +55,13 @@ def register():
 # EVENTS (HOME) PAGE #
 @app.route('/index')
 def index():
-#insert code
-    return render_template("index.html")
+    # retrieve user from database
+    # check if a user is saved in session
+    if session.get('user'):
+        events = db.session.query(Event).filter_by(user_id=session['user_id']).all()
+        return render_template("index.html", index=events, user=session['user'])
+    else:
+        return redirect(url_for('login'))
 
 # CREATE PAGE #
 @app.route('/new', methods=['GET', 'POST'])
