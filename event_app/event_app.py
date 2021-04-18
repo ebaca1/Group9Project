@@ -82,13 +82,13 @@ def new():
         return redirect(url_for('login'))
 
 # INDIVIDUAL EVENT (EDIT) PAGE #
-@app.route('/edit/eventID')
-def edit(id, email):
+@app.route('/edit/<event_id>', methods = ['GET', 'POST'])
+def edit(event_id, email):
     if request.method == 'POST':
         title = request.form['title']
         date = request.form['date']
         desc = request.form['desc']
-        event = db.session.query(Event).filter_by(id=id).one()
+        event = db.session.query(Event).filter_by(id=event_id).one()
         event.title = title
         event.date = date
         event.desc = desc

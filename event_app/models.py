@@ -6,6 +6,7 @@ import datetime
 
 class Event(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
+    listed = db.Column(("listed"), db.Boolean)
     title = db.Column("title",db.String(200))
     desc = db.Column("desc", db.String(100))
     date = db.Column("date", db.String(50))
@@ -13,7 +14,8 @@ class Event(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
 
-    def __init__(self, title, desc, date, rating, user_id):
+    def __init__(self, listed, title, desc, date, rating, user_id):
+        self.listed = listed
         self.title = title
         self.desc = desc
         self.date = date

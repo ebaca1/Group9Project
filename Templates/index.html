@@ -47,8 +47,8 @@
                 <td>{{ event.title }}</td>
                 <td>{{ event.date }}</td>
                 <td>{{ event.actions }}</td>
-                <form action="{{ url_for('delete_event', event_id=event.id) }}" method="post">
-                        <input type="submit" value="Delete">
+                <form action="{{ url_for('edit', event_id=event.id) }}" method="post">
+                        <input type="submit" value="Edit">
                 </form>
             </tr>
         </table>
