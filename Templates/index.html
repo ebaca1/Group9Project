@@ -52,5 +52,13 @@
                 </form>
             </tr>
         </table>
+        <h3>RSVP Events</h3>
+        {% for rsvp in rsvp %}
+            <tr>
+                <td><a href="{{ url_for('get_event', event_id=event.id) }}">{{ event.title }}</a></td>
+                <td>{{ event.date }}</td>
+                </td>
+            </tr>
+            {% endfor %}
     </body>
 </html>
