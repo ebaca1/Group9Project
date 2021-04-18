@@ -29,8 +29,28 @@ def login():
 # REGISTRATION PAGE #
 @app.route('/register')
 def register():
-#insert code
-    return render_template("register.html")
+    form = RegisterForm()
+
+    if request.method == 'POST' and form.validate_on_submit():
+        # salt and hash password
+        h_password = bcrypt.hashpw(
+            request.form['password'].encode('utf-8'), bcrypt.gensalt())
+        # get entered user data
+        first_name = request.form['firstname']
+        last_name = request.form['lastname']
+        # create user model
+        new_user = User(first_name, last_name, request.form['email'], h_password)
+        # add user to database and commit
+        db.session.add(new_user)
+        db.session.commit()
+        # save the user's name to the session
+        session['user'] = first_name
+        session['user_id'] = new_user.id  # access id value from user model of this newly added user
+        # show user dashboard view
+        return redirect(url_for('index'))
+
+    # something went wrong - display register view
+    return render_template('register.html', form=form)
 
 # EVENTS (HOME) PAGE #
 @app.route('/index')
