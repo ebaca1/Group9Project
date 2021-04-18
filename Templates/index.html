@@ -32,7 +32,7 @@
             <tr>
                 <td>{{ event.title }}</td>
                 <td>{{ event.date }}</td>
-                <td>{{ event.description }}</td>
+                <td>{{ event.desc }}</td>
             </tr>
         </table>
 
@@ -47,7 +47,18 @@
                 <td>{{ event.title }}</td>
                 <td>{{ event.date }}</td>
                 <td>{{ event.actions }}</td>
+                <form action="{{ url_for('delete_event', event_id=event.id) }}" method="post">
+                        <input type="submit" value="Delete">
+                </form>
             </tr>
         </table>
+        <h3>RSVP Events</h3>
+        {% for rsvp in rsvp %}
+            <tr>
+                <td><a href="{{ url_for('get_event', event_id=event.id) }}">{{ event.title }}</a></td>
+                <td>{{ event.date }}</td>
+                </td>
+            </tr>
+            {% endfor %}
     </body>
 </html>
