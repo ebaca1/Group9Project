@@ -29,11 +29,17 @@
                 <th>Date</th>
                 <th>Description</th>
             </tr>
+            {% for note in notes %}
             <tr>
-                <td>{{ event.title }}</td>
+                <td><a href="{{ url_for('get_event', event_id=note.id) }}">{{ event.title }}</a></td>
                 <td>{{ event.date }}</td>
-                <td>{{ event.desc }}</td>
+		<td><a href="{{ url_for('update_event', event_id=event.id) }}">Edit</a></td>
+		<td>
+		   <form action="{{ url_for('delete_event', event_id=event.id) }}" method="post">
+		       <input type="submit" value="Delete">
+		   </form>
             </tr>
+            {% endfor %}
         </table>
 
         <h2>Your Events</h2>
@@ -43,14 +49,17 @@
                 <th>Date</th>
                 <th>Actions</th>
             </tr>
+            {% for note in notes %}
             <tr>
-                <td>{{ event.title }}</td>
+                <td><a href="{{ url_for('get_event', event_id=note.id) }}">{{ event.title }}</a></td>
                 <td>{{ event.date }}</td>
-                <td>{{ event.actions }}</td>
-                <form action="{{ url_for('edit', event_id=event.id) }}" method="post">
-                        <input type="submit" value="Edit">
-                </form>
+		<td><a href="{{ url_for('update_event', event_id=event.id) }}">Edit</a></td>
+		<td>
+		   <form action="{{ url_for('delete_event', event_id=event.id) }}" method="post">
+		       <input type="submit" value="Delete">
+		   </form>
             </tr>
+            {% endfor %}
         </table>
         <h3>RSVP Events</h3>
         {% for rsvp in rsvp %}
