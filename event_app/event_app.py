@@ -100,7 +100,7 @@ def edit(event_id, email):
         a_user = db.session.query(User).filter_by(email=email).one()
         my_event = db.session.query(Event).filter_by(id=id).one()
 
-        return render_template("edit.html", index=my_event, user=a_user)
+        return render_template("new.html", index=my_event, user=a_user)
 
 # INDIVIDUAL EVENT PAGE #
 @app.route('/index/eventID')
