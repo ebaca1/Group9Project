@@ -51,7 +51,7 @@ def login():
         return render_template("login.html", form=login_form)
   
 # REGISTRATION PAGE #
-@app.route('/register')
+@app.route('/register', methods=['POST', 'GET'])
 def register():
     form = RegisterForm()
 
