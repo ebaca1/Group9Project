@@ -36,8 +36,19 @@ with app.app_context():
 @app.route('/')
 @app.route('/login')
 def login():
+    login_form = LoginForm()
 
-    return render_template("login.html")
+    if login_form.validate_on_submit():
+        the_user = db.session.query(User).filter_by(email=request.form['email']).one()
+        if bcrypt.checkpw(request.form['password'].encode('utf-8'), the_user.passord):
+            session['user'] = the_user.first_name
+            session['user_id'] = the_user.id
+            return redirect(url_for('index'))
+
+        login_form.password.errors = ["Incorrect username or password."]
+        return render_template("login.html", form=login_form)
+    else:
+        return render_template("login.html", form=login_form)
   
 # REGISTRATION PAGE #
 @app.route('/register')
