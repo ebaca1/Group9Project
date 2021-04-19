@@ -83,9 +83,11 @@ def index():
     # check if a user is saved in session
     if session.get('user'):
         events = db.session.query(Event).filter_by(user_id=session['user_id']).all()
-        return render_template("index.html", index=events, user=session['user'])
+        return render_template('index.html', index=event, user=session['user'])
     else:
         return redirect(url_for('login'))
+
+    return render_template("index.html", index=event, user=session['user'])
 
 # CREATE PAGE #
 @app.route('/event/new', methods=['GET', 'POST'])
