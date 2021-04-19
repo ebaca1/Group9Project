@@ -1,23 +1,37 @@
-# IMPORTS #
-import os 
-from flask import Flask, render_template, request, redirect, url_for, session
+import os                 # os is used to get environment variables IP & PORT
+   # Flask is the web app that we will customize
+from flask import Flask, render_template
+
+app = Flask(__name__)     # create an app
+
+# @app.route is a decorator. It gives the function "index" special powers.
+# In this case it makes it so anyone going to "your-url/" makes this function
+# get called. What it returns is what is shown as the web page
+from flask import render_template
+from flask import request
+from flask import redirect
+from flask import url_for
 from database import db
-from models import Event as Event, User as User, Rsvp as Rsvp
-from forms import RegisterForm, LoginForm
+from models import Note as Note
+from models import User as User
+from forms import RegisterForm
+from flask import session
 import bcrypt
+from forms import LoginForm
+from models import Comment as Comment
+from forms import RegisterForm
+from forms import LoginForm
+from forms import CommentForm
 
-app = Flask(__name__)
 
-# SETUP #
-#Pulled this directly from flask_app tutorial. Edit/delete what needs to be fixed
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask_note_app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 app.config['SECRET_KEY'] = 'SE3155'
-
+#  Bind SQLAlchemy db object to this Flask app
 db.init_app(app)
-
+# Setup models
 with app.app_context():
-    db.create_all()
+    db.create_all()   # run under the app context
 
 # LOGIN PAGE #  
 @app.route('/')
