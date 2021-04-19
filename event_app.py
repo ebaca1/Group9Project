@@ -77,7 +77,7 @@ def index():
         return redirect(url_for('login'))
 
 # CREATE PAGE #
-@app.route('/new', methods=['GET', 'POST'])
+@app.route('/event/new', methods=['GET', 'POST'])
 def new():
     if session.get('user'):
         if request.method == 'POST':
