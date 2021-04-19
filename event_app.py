@@ -12,16 +12,15 @@ from flask import request
 from flask import redirect
 from flask import url_for
 from database import db
-from models import Note as Note
+from models import Event as Event
 from models import User as User
 from forms import RegisterForm
 from flask import session
 import bcrypt
 from forms import LoginForm
-from models import Comment as Comment
+from models import Rsvp as Rsvp
 from forms import RegisterForm
 from forms import LoginForm
-from forms import CommentForm
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask_note_app.db'
