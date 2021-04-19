@@ -83,24 +83,27 @@ def new():
 
 # INDIVIDUAL EVENT (EDIT) PAGE #
 @app.route('/edit/<event_id>', methods = ['GET', 'POST'])
-def edit(event_id, email):
-    if request.method == 'POST':
-        title = request.form['title']
-        date = request.form['date']
-        desc = request.form['desc']
-        event = db.session.query(Event).filter_by(id=event_id).one()
-        event.title = title
-        event.date = date
-        event.desc = desc
-        db.session.add(event)
-        db.session.commit()
+def edit(event_id):
+    if session.get('user'):
+        if request.method == 'POST':
+            title = request.form['title']
+            date = request.form['date']
+            desc = request.form['desc']
+            event = db.session.query(Event).filter_by(id=event_id).one()
+            event.title = title
+            event.date = date
+            event.desc = desc
+            db.session.add(event)
+            db.session.commit()
 
-        return redirect(url_for('index'))
+            return redirect(url_for('index'))
+        else:
+            my_event = db.session.query(Event).filter_by(id=event_id).one()
+
+            return render_template("new.html", index=my_event, user=session['user'])
     else:
-        a_user = db.session.query(User).filter_by(email=email).one()
-        my_event = db.session.query(Event).filter_by(id=id).one()
-
-        return render_template("new.html", index=my_event, user=a_user)
+        # user is not in session redirect to login
+        return redirect(url_for('login'))
 
 # INDIVIDUAL EVENT PAGE #
 @app.route('/index/eventID')
