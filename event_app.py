@@ -53,7 +53,7 @@ def register():
     return render_template('register.html', form=form)
 
 # EVENTS (HOME) PAGE #
-@app.route('/index')
+@app.route('/index', methods = ['GET', 'POST'])
 def index():
     # retrieve user from database
     # check if a user is saved in session
