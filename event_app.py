@@ -83,11 +83,9 @@ def index():
     # check if a user is saved in session
     if session.get('user'):
         events = db.session.query(Event).filter_by(user_id=session['user_id']).all()
-        return render_template('index.html', index=event, user=session['user'])
+        return render_template('index.html', index=events, user=session['user'])
     else:
         return redirect(url_for('login'))
-
-    return render_template("index.html", index=event, user=session['user'])
 
 # CREATE PAGE #
 @app.route('/event/new', methods=['GET', 'POST'])
@@ -126,20 +124,20 @@ def edit(event_id):
         else:
             my_event = db.session.query(Event).filter_by(id=event_id).one()
 
-            return render_template("new.html", index=my_event, user=session['user'])
+            return render_template("new.html", event=my_event, user=session['user'])
     else:
         # user is not in session redirect to login
         return redirect(url_for('login'))
 
 # INDIVIDUAL EVENT PAGE #
-@app.route('/index/eventID')
+@app.route('/index/<event_id>')
 def event(event_id):
-#check if a user is saved in session
+# check if a user is saved in session
     if session.get('user'):
-        #retrieve event from database
+        # retrieve event from database
         a_event = db.session.query(Event).filter_by(id=event_id).one()
 
-        return render_template("event.html", event = a_event, user = session['user'])
+        return render_template("event.html", event=a_event, user=session['user'])
     else:
         return render_template("login.html")
 
