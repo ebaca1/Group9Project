@@ -39,6 +39,9 @@
 		            <form action="{{ url_for('delete_event', event_id=event.id) }}" method="post">
 		                <input type="submit" value="Delete">
 		            </form>
+                    <form action="{{ url_for('rsvp', event_id=event.id) }}" method="post">
+                        <input type="submit" value="RSVP">
+                    </form>
                 </td>
             </tr>
             {% endfor %}
