@@ -95,9 +95,9 @@ def new():
     if session.get('user'):
         if request.method == 'POST':
             title = request.form['title']
-            text = request.form['noteText']
             date = request.form['date']
-            new_record = Event(title, text, date, session['user_id'])
+            text = request.form['eventText']
+            new_record = Event(title, date, text, session['user'])
             db.session.add(new_record)
             db.session.commit()
 
@@ -114,12 +114,12 @@ def edit(event_id):
         if request.method == 'POST':
             title = request.form['title']
             date = request.form['date']
-            desc = request.form['desc']
-            event = db.session.query(Event).filter_by(id=event_id).one()
-            event.title = title
-            event.date = date
-            event.desc = desc
-            db.session.add(event)
+            text = request.form['eventText']
+            edit_event = db.session.query(Event).filter_by(id=event_id).one()
+            edit_event.title = title
+            edit_event.date = date
+            edit_event.text = text
+            db.session.add(edit_event)
             db.session.commit()
 
             return redirect(url_for('index'))
@@ -160,12 +160,13 @@ def profile():
 # View event
 @app.route('/events/view', methods=['GET'])
 def view_event(event_id):
-    my_event = db.session.query(Event).filter_by(id=event_id).one()
+    if session.get(event_id):
+        my_event = db.session.query(Event).filter_by(id=event_id).one()
 
-    cur = my_event.execute('select event')
-    entries = cur.fetchall()
+        cur = my_event.execute('select event')
+        entries = cur.fetchall()
 
-    return redirect(url_for('get_events'))
+        return redirect(url_for('get_events'))
 
     else:
         return redirect(url_for('login'))

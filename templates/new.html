@@ -16,10 +16,8 @@
 		
 		<h1>{{user}}'s New Event</h1>
 		{% if event %}
-		<form action="{{ url_for('update_event', event_id=event.id) }}" method="post">
-			{% else %}
-			<form action="new" method="post">
-				{% endif %}
+			<form action="{{ url_for('new', event_id=event.id) }}" method="post">
+		{% endif %}
 				<p><label>Event Title</label></p>
 				<p><input type="text" name="title" value="{% if event %}{{event.title}} {% endif %}"/></p>
 				<p><label>Event Date</label></p>
@@ -28,20 +26,20 @@
 				<p>
 					<textarea name="eventText"  rows="6" cols="0">
 						{% if event %}
-						{{event.text}}
+							{{event.text}}
 						{% else %}
-						Add your event time and description here...
+							Add your event time and description here...
 						{% endif %}
 					</textarea>
 				</p>
 				<p>
 					{% if event %}
-					<input type="submit" value="Update Event"/>
+						<input type="submit" value="Update Event"/>
 					{% else %}
-					<input type="submit" value="Save"/>
-					<input type="submit" value="List"/>
+						<input type="submit" value="List"/>
 					{% endif %}
 				</p>
 			</form>
-			</body>
-		</html>
+		</form>
+	</body>
+</html>

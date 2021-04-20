@@ -6,7 +6,7 @@ import datetime
 
 class Event(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
-    listed = db.Column(("listed"), db.Boolean)
+    listed = db.Column("listed", db.Boolean)
     title = db.Column("title",db.String(200))
     desc = db.Column("desc", db.String(100))
     date = db.Column("date", db.String(50))
