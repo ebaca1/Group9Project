@@ -34,13 +34,14 @@ with app.app_context():
 
 # LOGIN PAGE #  
 @app.route('/')
-@app.route('/login')
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     login_form = LoginForm()
 
     if login_form.validate_on_submit():
         the_user = db.session.query(User).filter_by(email=request.form['email']).one()
-        if bcrypt.checkpw(request.form['password'].encode('utf-8'), the_user.passord):
+        if bcrypt.checkpw(request.form['password'].encode('utf-8'), the_user.password):
+
             session['user'] = the_user.first_name
             session['user_id'] = the_user.id
             return redirect(url_for('index'))
