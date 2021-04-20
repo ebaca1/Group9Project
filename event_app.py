@@ -157,6 +157,20 @@ def profile():
 #insert code
     return render_template("profile.html")
 
+# View event
+@app.route('/events/view', methods=['GET'])
+def view_event(event_id):
+    my_event = db.session.query(Event).filter_by(id=event_id).one()
+
+    cur = my_event.execute('select event')
+    entries = cur.fetchall()
+
+    return redirect(url_for('get_events'))
+
+    else:
+        return redirect(url_for('login'))
+    
+
 # Delete event
 @app.route('/events/delete/<event_id>', methods=['POST'])
 def delete_event(event_id):
