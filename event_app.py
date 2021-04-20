@@ -95,9 +95,9 @@ def new():
     if session.get('user'):
         if request.method == 'POST':
             title = request.form['title']
-            date = request.form['date']
             text = request.form['eventText']
-            new_record = Event(title, date, text, session['user'])
+            date = request.form['date']
+            new_record = Event(title, text, date, session['user_id'])
             db.session.add(new_record)
             db.session.commit()
 
