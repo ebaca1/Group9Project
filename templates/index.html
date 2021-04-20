@@ -15,8 +15,8 @@
         <!-- Body -->
 	<h1>Events</h1>
 
-        <button type="button" onclick="location.href='{{ url_for('profile') }}'">Profile</button>
-        <button type="button" onclick="location.href='{{ url_for('new') }}'">Create Event</button>
+        <button type="button">Profile</button>
+        <button type="button">Create Event</button>
 
         <form>
             <label>Search: </label>
@@ -31,9 +31,9 @@
             </tr>
             {% for note in notes %}
             <tr>
-                <td><a href="{{ url_for('get_event', event_id=event.id) }}">{{ event.title }}</a></td>
+                <td><a href="{{ url_for('get_event', event_id=note.id) }}">{{ event.title }}</a></td>
                 <td>{{ event.date }}</td>
-		<td><a href="{{ url_for('update_event', event_id=event.id) }}">Edit</a></td>
+		<td><a href="{{ url_for('edit', event_id=event.id) }}">Edit</a></td>
 		<td>
 		   <form action="{{ url_for('delete_event', event_id=event.id) }}" method="post">
 		       <input type="submit" value="Delete">
@@ -53,7 +53,7 @@
             <tr>
                 <td><a href="{{ url_for('get_event', event_id=note.id) }}">{{ event.title }}</a></td>
                 <td>{{ event.date }}</td>
-		<td><a href="{{ url_for('update_event', event_id=event.id) }}">Edit</a></td>
+		<td><a href="{{ url_for('edit', event_id=event.id) }}">Edit</a></td>
 		<td>
 		   <form action="{{ url_for('delete_event', event_id=event.id) }}" method="post">
 		       <input type="submit" value="Delete">
