@@ -29,7 +29,7 @@
                 <th>Date</th>
                 <th>Description</th>
             </tr>
-            {% for event in user %}
+            {% for event in index %}
             <tr>
                 <td><a href="{{ url_for('event', event_id=event.id) }}">{{ event.title }}</a></td>
                 <td>{{ event.date }}</td>

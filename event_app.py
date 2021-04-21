@@ -78,13 +78,13 @@ def register():
     return render_template('register.html', form=form)
 
 # EVENTS (HOME) PAGE #
-@app.route('/index', methods = ['GET', 'POST'])
+@app.route('/index')
 def index():
     # retrieve user from database
     # check if a user is saved in session
     if session.get('user'):
-        events = db.session.query(Event).filter_by(user_id=session['user_id']).all()
-        return render_template('index.html', index=events, user=session['user'])
+        events = db.session.query(Event).all()
+        return render_template("index.html", index=events, user=session['user'])
     else:
         return redirect(url_for('login'))
 
@@ -140,7 +140,7 @@ def event(event_id):
 
         return render_template("event.html", event=a_event, user=session['user'])
     else:
-        return render_template("login.html")
+        return redirect(url_for('login'))
 
 # ACCOUNT INFO PAGE #
 @app.route('/edit/list/<event_id>', methods = ['POST'])
