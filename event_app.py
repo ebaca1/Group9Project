@@ -84,7 +84,8 @@ def index():
     # check if a user is saved in session
     if session.get('user'):
         events = db.session.query(Event).all()
-        return render_template("index.html", index=events, user=session['user'])
+        my_event = db.session.query(Event).filter_by(user_id=session['user_id']).all()
+        return render_template("index.html", index=events, my_events = my_event, user=session['user'])
     else:
         return redirect(url_for('login'))
 
@@ -168,7 +169,7 @@ def delete_event(event_id):
         db.session.commit()
 
         # Go to events page after event is deleted
-        return redirect(url_for('get_events'))
+        return redirect(url_for('index'))
     else:
         # User is not in session, redirect to login
         return redirect(url_for('login'))
