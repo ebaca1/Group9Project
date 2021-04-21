@@ -108,18 +108,18 @@ def new():
         return redirect(url_for('login'))
 
 # INDIVIDUAL EVENT (EDIT) PAGE #
-@app.route('/edit/<event_id>', methods = ['GET', 'POST'])
+@app.route('/index/edit/<event_id>', methods = ['GET', 'POST'])
 def edit(event_id):
     if session.get('user'):
         if request.method == 'POST':
             title = request.form['title']
             date = request.form['date']
             text = request.form['eventText']
-            edit_event = db.session.query(Event).filter_by(id=event_id).one()
-            edit_event.title = title
-            edit_event.date = date
-            edit_event.text = text
-            db.session.add(edit_event)
+            event = db.session.query(Event).filter_by(id=event_id).one()
+            event.title = title
+            event.date = date
+            event.text = text
+            db.session.add(event)
             db.session.commit()
 
             return redirect(url_for('index'))
