@@ -182,11 +182,12 @@ def rsvp (event_id):
         my_event = db.session.query(Event).filter_by(id=event_id).one()
 
 	    # Add the event to RSVP'd events
+        # new_rsvp = Event(session['rsvp_id'], session['user_id'])
         db.session.add(my_event)
         db.session.commit()
 
         # Go to events page after event has been RSVP'd
-        return redirect(url_for('get_events'))
+        return redirect(url_for('index'))
     else:
         # User is not in session, redirect to login
         return redirect(url_for('login'))
