@@ -115,11 +115,11 @@ def edit(event_id):
             title = request.form['title']
             date = request.form['date']
             text = request.form['eventText']
-            event = db.session.query(Event).filter_by(id=event_id).one()
-            event.title = title
-            event.date = date
-            event.text = text
-            db.session.add(event)
+            edit_event = db.session.query(Event).filter_by(id=event_id).one()
+            edit_event.title = title
+            edit_event.date = date
+            edit_event.text = text
+            db.session.add(edit_event)
             db.session.commit()
 
             return redirect(url_for('index'))

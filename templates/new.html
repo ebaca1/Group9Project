@@ -16,7 +16,7 @@
 		
 		<h1>{{user}}'s New Event</h1>
 		{% if event %}
-		   <form action="{{ url_for('update_event', event_id=event.id) }}" method="post">
+		   <form action="{{ url_for('edit', event_id=event.id) }}" method="post">
 		{% else %}
 		   <form action="new" method="post">
 		{% endif %}
