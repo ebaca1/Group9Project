@@ -23,7 +23,7 @@ from forms import RegisterForm
 from forms import LoginForm
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flask_note_app.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 app.config['SECRET_KEY'] = 'SE3155'
 #  Bind SQLAlchemy db object to this Flask app
@@ -166,13 +166,13 @@ def profile():
     return render_template("profile.html")
 
 # Delete event
-@app.route('/events/delete/<event_id>', methods=['POST'])
+@app.route('/index/delete/<event_id>', methods=['POST'])
 def delete_event(event_id):
     if session.get('user'):
         # Retrieve event from database
         my_event = db.session.query(Event).filter_by(id=event_id).one()
 
-	    # Delete the event
+        # Delete the event
         db.session.delete(my_event)
         db.session.commit()
 
@@ -183,15 +183,15 @@ def delete_event(event_id):
         return redirect(url_for('login'))
 
 # RSVP to an event
-@app.route('/events/rsvp/<event_id>', methods=['POST'])
+@app.route('/index/<event_id>/rsvp', methods=['GET', 'POST'])
 def rsvp (event_id):
     if session.get('user'):
         # Retrieve event from database
-        my_event = db.session.query(Event).filter_by(id=event_id).one()
+        the_event = db.session.query(Event).filter_by(id=event_id).one()
 
-	    # Add the event to RSVP'd events
-        # new_rsvp = Event(session['rsvp_id'], session['user_id'])
-        db.session.add(my_event)
+        # Add the event to RSVP'd events
+        new_rsvp = Rsvp(the_event.id, session['user_id'])
+        db.session.add(new_rsvp)
         db.session.commit()
 
         # Go to events page after event has been RSVP'd
