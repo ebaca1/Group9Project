@@ -92,6 +92,9 @@ def index():
     # check if a user is saved in session
     if session.get('user'):
         events = db.session.query(Event).all()
+        #users = db.session.query(User).all
+        #rsvps = db.session.query(Rsvp).all
+        #rsvp = db.session.query(Rsvp).get(Rsvp.event_id).filter_by(user_id=session['user_id']).all()
         my_event = db.session.query(Event).filter_by(user_id=session['user_id']).all()
         my_rsvp = db.session.query(Rsvp).filter_by(user_id=session['user_id']).all()
         return render_template("index.html", index=events, my_events = my_event, my_rsvps = my_rsvp, user=session['user'])
@@ -188,10 +191,10 @@ def delete_event(event_id):
 def rsvp (event_id):
     if session.get('user'):
         # Retrieve event from database
-        the_event = db.session.query(Event).filter_by(id=event_id).one()
+        my_rsvp = db.session.query(Event).filter_by(id=event_id).one()
 
         # Add the event to RSVP'd events
-        new_rsvp = Rsvp(the_event.id, session['user_id'])
+        new_rsvp = Rsvp(my_rsvp.id, session['user_id'])
         db.session.add(new_rsvp)
         db.session.commit()
 

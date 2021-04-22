@@ -3,6 +3,8 @@
 # imports
 from database import db
 import datetime
+import sqlite3
+from sqlite3 import Error
 
 class Event(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
@@ -50,3 +52,4 @@ class Rsvp(db.Model):
     def __init__(self, user_id, event_id):
         self.event_id = event_id
         self.user_id = user_id
+
