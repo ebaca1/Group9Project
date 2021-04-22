@@ -42,11 +42,11 @@ class User(db.Model):
 # Model for RSVP
 class Rsvp(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
-    eventid = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
-    userid = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
 
 
-    def __init__(self, userid, eventid):
-        self.eventid = eventid
-        self.userid = userid
+    def __init__(self, user_id, event_id):
+        self.event_id = event_id
+        self.user_id = user_id

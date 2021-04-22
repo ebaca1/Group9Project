@@ -93,7 +93,8 @@ def index():
     if session.get('user'):
         events = db.session.query(Event).all()
         my_event = db.session.query(Event).filter_by(user_id=session['user_id']).all()
-        return render_template("index.html", index=events, my_events = my_event, user=session['user'])
+        my_rsvp = db.session.query(Rsvp).filter_by(user_id=session['user_id']).all()
+        return render_template("index.html", index=events, my_events = my_event, my_rsvps = my_rsvp, user=session['user'])
     else:
         return redirect(url_for('login'))
 

@@ -75,6 +75,21 @@
                     </tr>
                     {% endfor %}
                 </table>
+            <h2>My RSVPs</h2>
+                <table>
+                    <tr>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Description</th>
+                    </tr>
+                    {% for event in my_rsvps %}
+                    <tr>
+                        <td><a href="{{ url_for('event', event_id=event.id) }}">{{ event.title }}</a></td>
+                        <td>{{ event.date }}</td>
+                        <td>{{ event.text }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
 
        <!-- <h2>Your Events</h2>
         <table>
