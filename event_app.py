@@ -50,6 +50,14 @@ def login():
         return render_template("login.html", form=login_form)
     else:
         return render_template("login.html", form=login_form)
+
+@app.route('/logout')
+def logout():
+    # check if a user is saved in session
+    if session.get('user'):
+        session.clear()
+
+    return redirect(url_for('login'))
   
 # REGISTRATION PAGE #
 @app.route('/register', methods=['POST', 'GET'])

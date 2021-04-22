@@ -5,28 +5,33 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>G9 - TODO</title>
         <!-- styles -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     </head>
 	
     <body>
 		<nav> 
-		<!-- Navigation -->
+			<a href="{{ url_for('index') }}">Events</a> ||
+            <a href="{{ url_for('new') }}">Create Event</a> ||
+			<a href="{{ url_for('profile') }}">My Account</a> ||
+			<a href="{{url_for('logout')}}">Logout</a>
 		</nav>
 
-        	<!-- Body -->
-		<h1>Event</h1>
+        <div class="body">
+			<h1>Event</h1>
 
-		<img>
+			<img>
 
-		<p><strong>Title: </strong>{{ event.title }}</p>
-		<p><strong>Date: </strong>{{ event.date }}</p>
-		<p><strong>Description: </strong>{{ event.text }}</p>
+			<p><strong>Title: </strong>{{ event.title }}</p>
+			<p><strong>Date: </strong>{{ event.date }}</p>
+			<p><strong>Description: </strong>{{ event.text }}</p>
 
-		<td><a href="{{ url_for('rsvp', event_id=event.id) }}">RSVP</a></td>
+			<td><a href="{{ url_for('rsvp', event_id=event.id) }}">RSVP</a></td>
 
-		<td><a href="{{ url_for('event', event_id=event.id) }}">View Event</a></td>
+			<td><a href="{{ url_for('event', event_id=event.id) }}">View Event</a></td>
 
 
-		<!-- Takes you to /index -->
-		<p><button type="button" onclick="location.href='{{ url_for('index') }}'">Back</button></p>
+			<!-- Takes you to /index -->
+			<p><button type="button" onclick="location.href='{{ url_for('index') }}'">Back</button></p>
+		</div>
     </body>
 </html>

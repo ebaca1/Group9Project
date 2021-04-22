@@ -10,37 +10,42 @@
 	</head>
 	<body>
 		<nav>
-			<a href="{{ url_for('index') }}"> Events</a> ||
-			<a href="{{ url_for('profile') }}"> My Account</a>
+			<a href="{{ url_for('index') }}">Events</a> ||
+            <a href="{{ url_for('new') }}">Create Event</a> ||
+            <a href="{{ url_for('profile') }}">My Account</a> ||
+            <a href="{{url_for('logout')}}">Logout</a>
 		</nav>
-		
-		<h1>{{user}}'s New Event</h1>
-		{% if event %}
-		   <form action="{{ url_for('edit', event_id=event.id) }}" method="post">
-		{% else %}
-		   <form action="new" method="post">
-		{% endif %}
-				<p><label>Event Title</label></p>
-				<p><input type="text" name="title" value="{% if event %}{{event.title}} {% endif %}"/></p>
-				<p><label>Event Date</label></p>
-				<p><input type="text" name="date" value="{% if event %}{{event.date}} {% endif %}"/></p>
-				<p><label>Description</label></p>
-				<p>
-					<textarea name="eventText"  rows="6" cols="0">
+
+		<div class="body">
+			<h1>{{user}}'s New Event</h1>
+			{% if event %}
+			   <form action="{{ url_for('edit', event_id=event.id) }}" method="post">
+			{% else %}
+			   <form action="new" method="post">
+			{% endif %}
+					<p><label>Event Title</label></p>
+					<p><input type="text" name="title" value="{% if event %}{{event.title}} {% endif %}"/></p>
+					<p><label>Event Date</label></p>
+					<p><input type="text" name="date" value="{% if event %}{{event.date}} {% endif %}"/></p>
+					<p><label>Description</label></p>
+					<p>
+						<textarea name="eventText"  rows="6" cols="0">
+							{% if event %}
+							{{event.text}}
+							{% else %}
+							Add your event time and description here...
+							{% endif %}
+						</textarea>
+					</p>
+					<p>
 						{% if event %}
-						{{event.text}}
+						<input type="submit" value="Update Event"/>
 						{% else %}
-						Add your event time and description here...
+						<input type="submit" value="List"/>
 						{% endif %}
-					</textarea>
-				</p>
-				<p>
-					{% if event %}
-					<input type="submit" value="Update Event"/>
-					{% else %}
-					<input type="submit" value="List"/>
-					{% endif %}
-				</p>
-			</form>
-			</body>
-		</html>
+					</p>
+			   </form>
+			   </form>
+		</div>
+	</body>
+</html>
