@@ -46,7 +46,16 @@ class Rsvp(db.Model):
     userid = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
 
-
     def __init__(self, userid, eventid):
         self.eventid = eventid
         self.userid = userid
+
+# Model for Report
+class Report(db.Model):
+    count = db.Column("reported", db.Integer, primary_key=True)
+    eventid = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
+
+
+    def __init__(self, count, eventid):
+        self.count = count
+        self.eventid = eventid
