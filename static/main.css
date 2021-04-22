@@ -15,12 +15,17 @@ body {
 }
 
 h1 {
-    color:blue;
+    color: #1616c7;
+    text-align: center;
 }
 
 h2 {
-    color:light-grey;
-    background:blue;
+    color: #3232f0;
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
 }
 
 table {

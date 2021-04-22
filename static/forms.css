@@ -16,6 +16,7 @@ form {
 }
 
 .formwrapper {
+  margin: auto;
   position: relative;
   background: white;
   width: 350px;
