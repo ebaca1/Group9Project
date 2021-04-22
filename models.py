@@ -12,9 +12,10 @@ class Event(db.Model):
     date = db.Column("date", db.String(50))
     #rating = db.Column("rating", db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    report_count = db.Column("reported", db.Integer, default=0)
 
 
-    def __init__(self, title, text, date, user_id):
+    def __init__(self, title, text, date, user_id, report_count):
         #add rating after "text" above if need be. Add listed after self
         #self.listed = listed
         self.title = title
@@ -22,6 +23,7 @@ class Event(db.Model):
         self.date = date
         #self.rating = rating
         self.user_id = user_id
+        self.report_count = report_count
 
 class User(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
@@ -46,23 +48,8 @@ class Rsvp(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
 
-<<<<<<< HEAD
+
     def __init__(self, userid, eventid):
         self.eventid = eventid
         self.userid = userid
 
-# Model for Report
-class Report(db.Model):
-    count = db.Column("reported", db.Integer, primary_key=True)
-    eventid = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
-
-
-    def __init__(self, count, eventid):
-        self.count = count
-        self.eventid = eventid
-=======
-
-    def __init__(self, user_id, event_id):
-        self.event_id = event_id
-        self.user_id = user_id
->>>>>>> 750470e8ee8e5acf567e97d1aa164876dac094a2

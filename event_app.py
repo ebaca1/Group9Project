@@ -106,7 +106,7 @@ def new():
             title = request.form['title']
             text = request.form['eventText']
             date = request.form['date']
-            new_record = Event(title, text, date, session['user_id'])
+            new_record = Event(title, text, date, session['user_id'], report_count=0)
             db.session.add(new_record)
             db.session.commit()
 
@@ -201,20 +201,27 @@ def rsvp (event_id):
         # User is not in session, redirect to login
         return redirect(url_for('login'))
 
-@app.route('/index/<event_id>/report', methods=['POST'])
-def report(event_id):
+@app.route('/index/<event_id>/report', methods=['GET','POST'])
+def report(event_id, report_count):
     if session.get('user'):
-        # Retrieve event from database
+        # Retrieve event from database and the amount of times it was reported
         reported_event = db.session.query(Event).filter_by(id=event_id).one()
+        report_count = db.session.query(Event).filter_by(count=report_count).one()
+        # Increment amount of times it has been reported by 1
+        report_count = report_count + 1
 
-        return redirect(url_for('report'))
+        # Delete event if it has been reported 3 times
+        if report_count == 3:
+            delete_event(reported_event)
+
+            # Return to home page after event is deleted
+            return redirect(url_for('index'))
+
+        # Return to event's page
+        return render_template("event.html", event=reported_event, user=session['user'])
     else:
         # User is not in session, redirect to login
         return redirect(url_for('login'))
-
-
-
-
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True) 
