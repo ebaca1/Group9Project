@@ -58,11 +58,17 @@
                         <td><a href="{{ url_for('event', event_id=event.id) }}">{{ event.title }}</a></td>
                         <td>{{ event.date }}</td>
                         <td>{{ event.text }}</td>
-                        <td><a href="{{ url_for('edit', event_id=event.id) }}">Edit</a></td>
+                        <td>
+                            <form action="{{ url_for('edit', event_id=event.id) }}" method="get">
+                                <input type="submit" value="Edit">
+                            </form>
+                        </td>
                         <td>
                             <form action="{{ url_for('delete_event', event_id=event.id) }}" method="post">
                                 <input type="submit" value="Delete">
                             </form>
+                        </td>
+                        <td>
                             <form action="{{ url_for('rsvp', event_id=event.id) }}" method="post">
                                 <input type="submit" value="RSVP">
                             </form>
