@@ -1,5 +1,5 @@
 # Group9Project
-Collaborative software engineering project using Python, Git, Flask, HTML and CSS for ITSC 3155 Software Engineering
+Collaborative software engineering project using Python, HTML / CSS, Sqlite and Flask for ITSC 3155 Software Engineering
 
 Collaborators:
 Chris Amoah,

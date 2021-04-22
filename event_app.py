@@ -93,10 +93,17 @@ def index():
     if session.get('user'):
         events = db.session.query(Event).all()
         #users = db.session.query(User).all
-        #rsvps = db.session.query(Rsvp).all
+
+        # find the rsvps associated with the user id
+        #rsvps = db.session.query(Rsvp).filter_by(user_id=session(['user_id'])).all()
+
+        # find the events in rsvps
+        #rsvp_events = db.session.query(Event).filter_by(event_id=rsvps.event_id).all()
+
         #rsvp = db.session.query(Rsvp).get(Rsvp.event_id).filter_by(user_id=session['user_id']).all()
         my_event = db.session.query(Event).filter_by(user_id=session['user_id']).all()
         my_rsvp = db.session.query(Rsvp).filter_by(user_id=session['user_id']).all()
+        #rsvp_events = db.session.query(Event).filter_by(event_id=my_rsvp.event_id).all()
         return render_template("index.html", index=events, my_events = my_event, my_rsvps = my_rsvp, user=session['user'])
     else:
         return redirect(url_for('login'))
@@ -205,17 +212,25 @@ def rsvp (event_id):
         return redirect(url_for('login'))
 
 @app.route('/index/<event_id>/report', methods=['GET','POST'])
-def report(event_id, report_count):
+def report(event_id):
     if session.get('user'):
         # Retrieve event from database and the amount of times it was reported
         reported_event = db.session.query(Event).filter_by(id=event_id).one()
-        report_count = db.session.query(Event).filter_by(count=report_count).one()
+        report_count = reported_event.report_count
         # Increment amount of times it has been reported by 1
         report_count = report_count + 1
+        # update count for the event
+        reported_event.report_count = report_count
+
+        # update db
+        db.session.add(reported_event)
+        db.session.commit()
 
         # Delete event if it has been reported 3 times
-        if report_count == 3:
-            delete_event(reported_event)
+        if report_count >= 3:
+            # Delete the event
+            db.session.delete(reported_event)
+            db.session.commit()
 
             # Return to home page after event is deleted
             return redirect(url_for('index'))
