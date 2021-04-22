@@ -200,6 +200,20 @@ def rsvp (event_id):
         # User is not in session, redirect to login
         return redirect(url_for('login'))
 
+@app.route('/index/<event_id>/report', methods=['POST'])
+def report(event_id):
+    if session.get('user'):
+        # Retrieve event from database
+        reported_event = db.session.query(Event).filter_by(id=event_id).one()
+
+        return redirect(url_for('report'))
+    else:
+        # User is not in session, redirect to login
+        return redirect(url_for('login'))
+
+
+
+
 
 
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True) 
