@@ -3,8 +3,6 @@
 # imports
 from database import db
 import datetime
-import sqlite3
-from sqlite3 import Error
 
 class Event(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
@@ -14,9 +12,10 @@ class Event(db.Model):
     date = db.Column("date", db.String(50))
     #rating = db.Column("rating", db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    report_count = db.Column("reported", db.Integer, default=0)
 
 
-    def __init__(self, title, text, date, user_id):
+    def __init__(self, title, text, date, user_id, report_count):
         #add rating after "text" above if need be. Add listed after self
         #self.listed = listed
         self.title = title
@@ -24,6 +23,7 @@ class Event(db.Model):
         self.date = date
         #self.rating = rating
         self.user_id = user_id
+        self.report_count = report_count
 
 class User(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
@@ -46,8 +46,6 @@ class Rsvp(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     event_id = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-
-
 
     def __init__(self, user_id, event_id):
         self.event_id = event_id
