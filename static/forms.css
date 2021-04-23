@@ -52,8 +52,8 @@ input[type="text"]:hover,
 input[type="password"]:hover,
 textarea:hover,
 select:hover {
-  border-color: green;
-  background: lightyellow;
+  border-color: blue;
+  background: lightblue;
 }
 
 input[type="text"]:focus,
@@ -65,20 +65,20 @@ textarea:focus {
 }
 
 input[type="submit"] {
-  background: green;
+  background: blue;
   border: 0;
   color: white;
   border-radius: 2px;
   margin-top: 15px;
   font-weight: 400;
-  border: 1px solid green;
+  border: 1px solid blue;
   transition: all .3s ease-out;
 }
 
 input[type="submit"]:hover {
   cursor: pointer;
   background: white;
-  color: green;
+  color: blue;
 }
 
 .success-wrapper {
