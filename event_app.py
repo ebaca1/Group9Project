@@ -162,7 +162,7 @@ def event(event_id):
     else:
         return redirect(url_for('login'))
 
-# ACCOUNT INFO PAGE #
+# LIST EVENT #
 @app.route('/edit/list/<event_id>', methods = ['POST'])
 def list(event_id):
     listed = request.form['listed']
@@ -211,6 +211,7 @@ def rsvp (event_id):
         # User is not in session, redirect to login
         return redirect(url_for('login'))
 
+# REPORT EVENT #
 @app.route('/index/<event_id>/report', methods=['GET','POST'])
 def report(event_id):
     if session.get('user'):
@@ -235,8 +236,8 @@ def report(event_id):
             # Return to home page after event is deleted
             return redirect(url_for('index'))
 
-
-        return render_template("report.html")
+        # Return to the event's page
+        return render_template("event.html", event=reported_event, user=session['user'])
     else:
         # User is not in session, redirect to login
         return redirect(url_for('login'))
