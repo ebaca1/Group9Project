@@ -19,10 +19,26 @@
         <div class="body">
             <h1>Events Home Page</h1>
 
-                <form>
+  <h2>
+    Search Events
+    <span class="htmx-indicator">
+    </span>
+  </h2>
+  
+  <input class="form-control" type="text" name="search" 
+  placeholder="Search..." 
+
+  hx-post="/search/" hx-trigger="keyup changed delay:500ms" 
+  hx-target="#search-results" hx-indicator=".htmx-indicator">
+
+    <tbody id="search-results">
+      <!-- filled with search results when ready -->
+    </tbody>
+
+              <!--  <form>
                     <label>Search: </label>
                     <input type="text" name="search"/>
-                </form><br>
+                </form><br> -->
 
                 <table>
                     <tr>
@@ -40,7 +56,7 @@
                 </table>
 
             <br><br>
-            <h2>My Events</h2>
+            <h3>My Events</h3>
                 <table>
                     <tr>
                         <th>Title</th>
