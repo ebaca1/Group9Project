@@ -1,8 +1,8 @@
-import os                 # os is used to get environment variables IP & PORT
-   # Flask is the web app that we will customize
+import os  # os is used to get environment variables IP & PORT
+# Flask is the web app that we will customize
 from flask import Flask, render_template
 
-app = Flask(__name__)     # create an app
+app = Flask(__name__)  # create an app
 
 # @app.route is a decorator. It gives the function "index" special powers.
 # In this case it makes it so anyone going to "your-url/" makes this function
@@ -22,17 +22,17 @@ from models import Rsvp as Rsvp
 from forms import RegisterForm
 from forms import LoginForm
 
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'SE3155'
 #  Bind SQLAlchemy db object to this Flask app
 db.init_app(app)
 # Setup models
 with app.app_context():
-    db.create_all()   # run under the app context
+    db.create_all()  # run under the app context
 
-# LOGIN PAGE #  
+
+# LOGIN PAGE #
 @app.route('/')
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -41,7 +41,6 @@ def login():
     if login_form.validate_on_submit():
         the_user = db.session.query(User).filter_by(email=request.form['email']).one()
         if bcrypt.checkpw(request.form['password'].encode('utf-8'), the_user.password):
-
             session['user'] = the_user.first_name
             session['user_id'] = the_user.id
             return redirect(url_for('index'))
@@ -51,6 +50,7 @@ def login():
     else:
         return render_template("login.html", form=login_form)
 
+
 @app.route('/logout')
 def logout():
     # check if a user is saved in session
@@ -58,7 +58,8 @@ def logout():
         session.clear()
 
     return redirect(url_for('login'))
-  
+
+
 # REGISTRATION PAGE #
 @app.route('/register', methods=['POST', 'GET'])
 def register():
@@ -85,6 +86,7 @@ def register():
     # something went wrong - display register view
     return render_template('register.html', form=form)
 
+
 # EVENTS (HOME) PAGE #
 @app.route('/index')
 def index():
@@ -92,21 +94,22 @@ def index():
     # check if a user is saved in session
     if session.get('user'):
         events = db.session.query(Event).all()
-        #users = db.session.query(User).all
+        # users = db.session.query(User).all
 
         # find the rsvps associated with the user id
-        #rsvps = db.session.query(Rsvp).filter_by(user_id=session(['user_id'])).all()
+        # rsvps = db.session.query(Rsvp).filter_by(user_id=session(['user_id'])).all()
 
         # find the events in rsvps
-        #rsvp_events = db.session.query(Event).filter_by(event_id=rsvps.event_id).all()
+        # rsvp_events = db.session.query(Event).filter_by(event_id=rsvps.event_id).all()
 
-        #rsvp = db.session.query(Rsvp).get(Rsvp.event_id).filter_by(user_id=session['user_id']).all()
+        # rsvp = db.session.query(Rsvp).get(Rsvp.event_id).filter_by(user_id=session['user_id']).all()
         my_event = db.session.query(Event).filter_by(user_id=session['user_id']).all()
         my_rsvp = db.session.query(Rsvp).filter_by(user_id=session['user_id']).all()
-        #rsvp_events = db.session.query(Event).filter_by(event_id=my_rsvp.event_id).all()
-        return render_template("index.html", index=events, my_events = my_event, my_rsvps = my_rsvp, user=session['user'])
+        # rsvp_events = db.session.query(Event).filter_by(event_id=my_rsvp.event_id).all()
+        return render_template("index.html", index=events, my_events=my_event, my_rsvps=my_rsvp, user=session['user'])
     else:
         return redirect(url_for('login'))
+
 
 # CREATE PAGE #
 @app.route('/event/new', methods=['GET', 'POST'])
@@ -126,8 +129,9 @@ def new():
     else:
         return redirect(url_for('login'))
 
+
 # INDIVIDUAL EVENT (EDIT) PAGE #
-@app.route('/index/edit/<event_id>', methods = ['GET', 'POST'])
+@app.route('/index/edit/<event_id>', methods=['GET', 'POST'])
 def edit(event_id):
     if session.get('user'):
         if request.method == 'POST':
@@ -150,32 +154,36 @@ def edit(event_id):
         # user is not in session redirect to login
         return redirect(url_for('login'))
 
+
 # INDIVIDUAL EVENT PAGE #
 @app.route('/index/<event_id>')
 def event(event_id):
-# check if a user is saved in session
+    # check if a user is saved in session
     if session.get('user'):
         # retrieve event from database
         a_event = db.session.query(Event).filter_by(id=event_id).one()
-        a_rsvp = db.session.query(Rsvp).filter_by(event_id=event_id).filter_by(user_id = session['user_id']).all()
+        a_rsvp = db.session.query(Rsvp).filter_by(event_id=event_id).filter_by(user_id=session['user_id']).all()
 
-        return render_template("event.html", event=a_event, user=session['user'], rsvp = a_rsvp)
+        return render_template("event.html", event=a_event, user=session['user'], rsvp=a_rsvp)
     else:
         return redirect(url_for('login'))
 
+
 # LIST EVENT #
-@app.route('/edit/list/<event_id>', methods = ['POST'])
+@app.route('/edit/list/<event_id>', methods=['POST'])
 def list(event_id):
     listed = request.form['listed']
     event = db.session.query(Event).filter_by(id=event_id).one()
     event.listed = True
     return render_template("index.html")
 
+
 # ACCOUNT INFO PAGE #
 @app.route('/profile/userID')
 def profile():
-#insert code
+    # insert code
     return render_template("profile.html")
+
 
 # Delete event
 @app.route('/index/delete/<event_id>', methods=['POST'])
@@ -194,9 +202,10 @@ def delete_event(event_id):
         # User is not in session, redirect to login
         return redirect(url_for('login'))
 
+
 # RSVP to an event
 @app.route('/index/<event_id>/rsvp', methods=['GET', 'POST'])
-def rsvp (event_id):
+def rsvp(event_id):
     if session.get('user'):
         # Retrieve event from database
         my_event = db.session.query(Event).filter_by(id=event_id).one()
@@ -211,8 +220,9 @@ def rsvp (event_id):
         # User is not in session, redirect to login
         return redirect(url_for('login'))
 
+
 # REPORT EVENT #
-@app.route('/index/<event_id>/report', methods=['GET','POST'])
+@app.route('/index/<event_id>/report', methods=['GET', 'POST'])
 def report(event_id):
     if session.get('user'):
         # Retrieve event from database and the amount of times it was reported
@@ -242,5 +252,21 @@ def report(event_id):
         # User is not in session, redirect to login
         return redirect(url_for('login'))
 
+# SEARCH FOR AN EVENT #
+@app.route('/search/', methods=['POST'])
+def search():
+    templ = """
+            {% for event in events %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.title }}</td>
+                <td>{{ user.text }}</td>
+                <td>{{ user.date }}</td>
+            </tr>
+            {% endfor %}
+    """
+    searchEvent = flask.request.form.get('search', None)
+    matchevents = [event for event in events if event.search(searchEvent)]
+    return flask.render_template_string(templ,events=matchevents)
 
-app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True) 
+app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True)

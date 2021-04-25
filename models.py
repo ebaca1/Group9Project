@@ -1,6 +1,6 @@
 # Flask database models file
 
-# imports
+#imports
 from database import db
 import datetime
 
@@ -24,6 +24,13 @@ class Event(db.Model):
         #self.rating = rating
         self.user_id = user_id
         self.report_count = report_count
+
+
+    def search( self, word ):
+        if (word is None):
+            return False
+        all = self.title + self.text + self.date
+        return word.lower() in all.lower()
 
 class User(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
@@ -59,4 +66,3 @@ class Rsvp(db.Model):
         #self.text = user_id
         #self.date = user_id
         #self.report_count = user_id
-
