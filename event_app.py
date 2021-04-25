@@ -237,7 +237,7 @@ def report(event_id):
             return redirect(url_for('index'))
 
         # Return to the event's page
-        return render_template("event.html", event=reported_event, user=session['user'])
+        return render_template("report.html", event=reported_event, user=session['user'])
     else:
         # User is not in session, redirect to login
         return redirect(url_for('login'))
