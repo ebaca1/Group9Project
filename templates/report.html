@@ -16,7 +16,19 @@
 		<h3>Report Event</h3>
         <p>Tell us why you are reporting this event.</p>
             <form action="{{ url_for('index') }}">
-                <input type="submit" value="Violent content">
+                <input type="submit" value="Event describes violent behavior">
+            </form>
+            <form action="{{ url_for('index') }}">
+                <input type="submit" value="Event describes illegal behavior">
+            </form>
+            <form action="{{ url_for('index') }}">
+                <input type="submit" value="Event describes sexual behavior">
+            </form>
+            <form action="{{ url_for('index') }}">
+                <input type="submit" value="Event discriminates against a race/gender/sexual orientation">
+            </form>
+            <form action="{{ url_for('index') }}">
+                <input type="submit" value="Event description uses profanity or offensive language">
             </form>
 
     </body>
