@@ -25,14 +25,26 @@
 			<p><strong>Date: </strong>{{ event.date }}</p>
 			<p><strong>Description: </strong>{{ event.text }}</p>
 
-			<td><a href="{{ url_for('index') }}">Home</a></td>
-			<td><a href="{{ url_for('rsvp', event_id=event.id) }}">RSVP</a></td>
-			<td><a href="{{ url_for('report', event_id=event.id) }}">Report</a></td>
+			<!--Buttons-->
+			<tr>
+				<td>
+			<form action="{{ url_for('index') }}">
+				<input type="submit" value="Home">
+			</form>
+					{% if rsvp %}
+					<p><strong>You've Rsvp'd ✓</strong></p>
+					{% endif %}
+					{% if not rsvp %}
+			<form action="{{ url_for('rsvp', event_id=event.id) }}" method="post">
+				<input type="submit" value="Rsvp">
+			</form>
+					{% endif %}
 
-
-
-			<!-- Takes you to /index -->
-			<p><button type="button" onclick="location.href='{{ url_for('index') }}'">Back</button></p>
+			<form action="{{ url_for('report', event_id=event.id) }}" method="post">
+				<input type="submit" value="Report">
+			</form>
+				</td>
+			</tr>
 		</div>
     </body>
 </html>

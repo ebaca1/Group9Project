@@ -157,8 +157,9 @@ def event(event_id):
     if session.get('user'):
         # retrieve event from database
         a_event = db.session.query(Event).filter_by(id=event_id).one()
+        a_rsvp = db.session.query(Rsvp).filter_by(event_id=event_id).filter_by(user_id = session['user_id']).all()
 
-        return render_template("event.html", event=a_event, user=session['user'])
+        return render_template("event.html", event=a_event, user=session['user'], rsvp = a_rsvp)
     else:
         return redirect(url_for('login'))
 
@@ -198,14 +199,13 @@ def delete_event(event_id):
 def rsvp (event_id):
     if session.get('user'):
         # Retrieve event from database
-        my_rsvp = db.session.query(Event).filter_by(id=event_id).one()
+        my_event = db.session.query(Event).filter_by(id=event_id).one()
 
         # Add the event to RSVP'd events
-        new_rsvp = Rsvp(my_rsvp.id, session['user_id'])
+        new_rsvp = Rsvp(my_event.id, session['user_id'])
         db.session.add(new_rsvp)
         db.session.commit()
-
-        # Go to events page after event has been RSVP'd
+        # Go to index page after event has been RSVP'd
         return redirect(url_for('index'))
     else:
         # User is not in session, redirect to login
@@ -236,7 +236,7 @@ def report(event_id):
             # Return to home page after event is deleted
             return redirect(url_for('index'))
 
-        # Return to the event's page
+        # Go to Report.html page
         return render_template("report.html", event=reported_event, user=session['user'])
     else:
         # User is not in session, redirect to login

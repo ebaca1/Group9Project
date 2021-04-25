@@ -35,11 +35,6 @@
                         <td><a href="{{ url_for('event', event_id=event.id) }}">{{ event.title }}</a></td>
                         <td>{{ event.date }}</td>
                         <td>{{ event.text }}</td>
-                        <td>
-                            <form action="{{ url_for('rsvp', event_id=event.id) }}" method="post">
-                                <input type="submit" value="RSVP">
-                            </form>
-                        </td>
                     </tr>
                     {% endfor %}
                 </table>
@@ -67,26 +62,6 @@
                                 <input type="submit" value="Delete">
                             </form>
                         </td>
-                        <td>
-                            <form action="{{ url_for('rsvp', event_id=event.id) }}" method="post">
-                                <input type="submit" value="RSVP">
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            <h2>My RSVPs</h2>
-                <table>
-                    <tr>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>Description</th>
-                    </tr>
-                    {% for event in my_rsvps %}
-                    <tr>
-                        <td><a href="{{ url_for('event', event_id=event.id) }}">{{ event.title }}</a></td>
-                        <td>{{ event.date }}</td>
-                        <td>{{ event.text }}</td>
                     </tr>
                     {% endfor %}
                 </table>
