@@ -19,28 +19,41 @@
         <div class="body">
             <h1>Events Home Page</h1>
 
-                <form>
-                    <label>Search: </label>
-                    <input type="text" name="search"/>
-                </form><br>
+            <h4>
+                Search Events
+                <span class="htmx-indicator">
+                </span>
+            </h4>
+  
+            <input class="form-control" type="text" name="search"
+                   placeholder="Search..."
 
-                <table>
-                    <tr>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>Description</th>
-                    </tr>
-                    {% for event in index %}
-                    <tr>
-                        <td><a href="{{ url_for('event', event_id=event.id) }}">{{ event.title }}</a></td>
-                        <td>{{ event.date }}</td>
-                        <td>{{ event.text }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
+                   hx-post="/search/" hx-trigger="keyup changed delay:500ms"
+                   hx-target="#search-results" hx-indicator=".htmx-indicator">
+
+            <tbody id="search-results">
+                <!-- filled with search results when ready -->
+            </tbody>
+
+            <br><br><br>
+
+            <table>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                </tr>
+                {% for event in index %}
+                <tr>
+                    <td><a href="{{ url_for('event', event_id=event.id) }}">{{ event.title }}</a></td>
+                    <td>{{ event.date }}</td>
+                    <td>{{ event.text }}</td>
+                </tr>
+                {% endfor %}
+            </table>
 
             <br><br>
-            <h2>My Events</h2>
+            <h3>My Events</h3>
                 <table>
                     <tr>
                         <th>Title</th>
@@ -65,43 +78,6 @@
                     </tr>
                     {% endfor %}
                 </table>
-
-       <!-- <h2>Your Events</h2>
-        <table>
-            <tr>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Actions</th>
-            </tr>
-            {% for note in notes %}
-            <tr>
-                <td><a href="{{ url_for('get_event', event_id=note.id) }}">{{ event.title }}</a></td>
-                <td>{{ event.date }}</td>
-		<td><a href="{{ url_for('edit', event_id=event.id) }}">Edit</a></td>
-		<td>
-		   <form action="{{ url_for('delete_event', event_id=event.id) }}" method="post">
-		       <input type="submit" value="Delete">
-		   </form>
-            </tr>
-            {% endfor %}
-        </table>
-        <h3>RSVP Events</h3>
-        {% for rsvp in rsvp %}
-            <tr>
-                <td><a href="{{ url_for('get_event', event_id=event.id) }}">{{ event.title }}</a></td>
-                <td>{{ event.date }}</td>
-                </td>
-            </tr>
-            {% endfor %} -->
-
-        <!--<h2>RSVP Events</h2>
-            <table>
-                <tr>
-                    <th>Title</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                </tr>
-            </table> -->
         </div>
     </body>
 </html>
