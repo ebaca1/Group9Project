@@ -242,5 +242,15 @@ def report(event_id):
         # User is not in session, redirect to login
         return redirect(url_for('login'))
 
+# SORT EVENT #
+@app.route('/event')
+def sort(event_id):
+    my_event = db.session.query(Event).filter_by(id=event_id).one()
+
+    sorted_event = my_event.sort(reverse=True)
+
+    return render_template("index.html")
+    
+
 
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True) 
