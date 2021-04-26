@@ -12,10 +12,11 @@ class Event(db.Model):
     date = db.Column("date", db.String(50))
     #rating = db.Column("rating", db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    image_name = db.Column(db.String(30), index=True)
     report_count = db.Column("reported", db.Integer, default=0)
 
 
-    def __init__(self, title, text, date, user_id, report_count):
+    def __init__(self, title, text, date, user_id, image_name, report_count):
         #add rating after "text" above if need be. Add listed after self
         #self.listed = listed
         self.title = title
@@ -23,6 +24,7 @@ class Event(db.Model):
         self.date = date
         #self.rating = rating
         self.user_id = user_id
+        self.image_name = image_name
         self.report_count = report_count
 
 

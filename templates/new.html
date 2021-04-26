@@ -19,9 +19,9 @@
 		<div class="body">
 			<h1>{{user}}'s New Event</h1>
 			{% if event %}
-			   <form action="{{ url_for('edit', event_id=event.id) }}" method="post">
+			   <form action="{{ url_for('edit', event_id=event.id) }}" method="post" enctype="multipart/form-data">
 			{% else %}
-			   <form action="new" method="post">
+			   <form action="new" method="post" enctype="multipart/form-data">
 			{% endif %}
 					<p><label>Event Title</label></p>
 					<p><input type="text" name="title" value="{% if event %}{{event.title}} {% endif %}"/></p>
@@ -37,6 +37,13 @@
 							{% endif %}
 						</textarea>
 					</p>
+				   <h2>Upload an image</h2>
+				   <label>Select image</label>
+				   <div class="custom-file">
+					   <input type="file" class="custom-file-input" name="image" id="image">
+					   <label class="custom-file-label" for="image">Select image...</label>
+				   </div>
+
 					<p>
 						{% if event %}
 						<input type="submit" value="Update Event"/>

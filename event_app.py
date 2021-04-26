@@ -14,17 +14,16 @@ from flask import url_for
 from database import db
 from models import Event as Event
 from models import User as User
-from forms import RegisterForm
+from models import Rsvp as Rsvp
 from flask import session
 import bcrypt
-from forms import LoginForm
-from models import Rsvp as Rsvp
 from forms import RegisterForm
 from forms import LoginForm
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'SE3155'
+app.config["IMAGE_UPLOADS"] = "images"
 #  Bind SQLAlchemy db object to this Flask app
 db.init_app(app)
 # Setup models
@@ -119,11 +118,16 @@ def new():
             title = request.form['title']
             text = request.form['eventText']
             date = request.form['date']
-            new_record = Event(title, text, date, session['user_id'], report_count=0)
+            image = request.files["image"]
+            image_name = os.path.join(app.config["IMAGE_UPLOADS"], image.filename)
+            image_name = image_name.replace("\\", "/")
+            image.save(image_name)
+            print("Image saved")
+            new_record = Event(title, text, date, session['user_id'], image_name, report_count=0)
             db.session.add(new_record)
             db.session.commit()
 
-            return redirect(url_for('index'))
+            return redirect(url_for('index'), request.url)
         else:
             return render_template('new.html', user=session['user'])
     else:
@@ -138,10 +142,15 @@ def edit(event_id):
             title = request.form['title']
             date = request.form['date']
             text = request.form['eventText']
+            image = request.files["image"]
+            image_name = os.path.join(app.config["IMAGE_UPLOADS"], image.filename)
+            image.save(image_name)
+            print("Image saved")
             edit_event = db.session.query(Event).filter_by(id=event_id).one()
             edit_event.title = title
             edit_event.date = date
             edit_event.text = text
+            edit_event.image_name = image_name
             db.session.add(edit_event)
             db.session.commit()
 
