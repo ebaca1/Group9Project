@@ -53,8 +53,8 @@ class User(db.Model):
 # Model for RSVP
 class Rsvp(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
-    event_id = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey("event.id"), nullable=False)
     #title = db.Column("title", db.String(200))
     #text = db.Column("text", db.String(100))
     #date = db.Column("date", db.String(50))

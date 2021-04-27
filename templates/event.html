@@ -34,8 +34,7 @@
 			</form>
 					{% if rsvp %}
 					<p><strong>You've Rsvp'd ✓</strong></p>
-					{% endif %}
-					{% if not rsvp %}
+					{% else %}
 			<form action="{{ url_for('rsvp', event_id=event.id) }}" method="post">
 				<input type="submit" value="Rsvp">
 			</form>
