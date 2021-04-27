@@ -171,7 +171,8 @@ def event(event_id):
     if session.get('user'):
         # retrieve event from database
         a_event = db.session.query(Event).filter_by(id=event_id).one()
-        a_rsvp = db.session.query(Rsvp).filter_by(event_id=event_id).filter_by(user_id=session['user_id']).all()
+        a_rsvp = db.session.query(Rsvp).filter(Rsvp.event_id == event_id, Rsvp.user_id == session['user_id']).all()
+        print(event_id, session['user_id'])
 
         return render_template("event.html", event=a_event, user=session['user'], rsvp=a_rsvp)
     else:
@@ -220,7 +221,7 @@ def rsvp(event_id):
         my_event = db.session.query(Event).filter_by(id=event_id).one()
 
         # Add the event to RSVP'd events
-        new_rsvp = Rsvp(my_event.id, session['user_id'])
+        new_rsvp = Rsvp(session['user_id'], my_event.id)
         db.session.add(new_rsvp)
         db.session.commit()
         # Go to index page after event has been RSVP'd
