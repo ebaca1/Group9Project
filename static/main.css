@@ -36,3 +36,11 @@ table {
 .form-control {
     margin-top: 0px;
 }
+
+th[scope="col"] {
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}
