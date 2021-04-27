@@ -261,7 +261,6 @@ def report(event_id):
         # User is not in session, redirect to login
         return redirect(url_for('login'))
 
-<<<<<<< HEAD
 # SORT EVENT #
 @app.route('/event')
 def sort(event_id):
@@ -272,9 +271,6 @@ def sort(event_id):
     return render_template("index.html")
     
 
-
-app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True) 
-=======
 # SEARCH FOR AN EVENT #
 @app.route('/search/', methods=['POST'])
 def search():
@@ -293,4 +289,3 @@ def search():
     return flask.render_template_string(templ,events=matchevents)
 
 app.run(host=os.getenv('IP', '127.0.0.1'),port=int(os.getenv('PORT', 5000)),debug=True)
->>>>>>> 690e0285db4d9bc11de7495735138c296819851a
