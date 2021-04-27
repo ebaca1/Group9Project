@@ -23,7 +23,7 @@ from forms import LoginForm
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'SE3155'
-app.config["IMAGE_UPLOADS"] = "images"
+app.config["IMAGE_UPLOADS"] = ""
 #  Bind SQLAlchemy db object to this Flask app
 db.init_app(app)
 # Setup models
