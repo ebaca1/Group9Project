@@ -5,14 +5,60 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>G9 - TODO</title>
         <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     </head>
 	
     <body>
 		<nav> 
-		<!-- Navigation -->
+            <a href="{{ url_for('index') }}">Events</a> ||
+            <a href="{{ url_for('new') }}">Create Event</a> ||
+            <a href="{{url_for('logout')}}">Logout</a>
 		</nav>
+        <h2>Profile</h2>
+        <table>
+            <tr>
+                <th>First name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Date registered</th>
+            </tr>
+                {% if user %}
+            <tr>
+                <td>{{ user.first_name }}</a></td>
+                <td>{{ user.last_name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.registered_on }}</td>
+            </tr>
+            </table>
+                {% endif %}
+        <br><br>
 
-        <!-- Body -->
-		<h3> To Do</h3>
+		<h3>My Events</h3>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Description</th>
+            </tr>
+            {% for event in my_events %}
+            <tr>
+                <td><a href="{{ url_for('event', event_id=event.id) }}">{{ event.title }}</a></td>
+                <td>{{ event.date }}</td>
+                <td>{{ event.text }}</td>
+                <td>
+                    <form action="{{ url_for('edit', event_id=event.id) }}" method="get">
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ url_for('delete_event', event_id=event.id) }}" method="post">
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+</div>
+</body>
     </body>
 </html>

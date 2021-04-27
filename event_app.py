@@ -192,7 +192,12 @@ def list(event_id):
 @app.route('/profile/userID')
 def profile():
     # insert code
-    return render_template("profile.html")
+    if session.get('user'):
+        my_event = db.session.query(Event).filter_by(user_id=session['user_id']).all()
+        user = db.session.query(User).filter_by(id=session['user_id']).one()
+        return render_template("profile.html", my_event=my_event, user=user)
+    else:
+        return redirect(url_for('login'))
 
 
 # Delete event
@@ -270,6 +275,7 @@ def sort(event_id):
     sorted_event = my_event.sort(reverse=True)
 
     return render_template("index.html")
+    
 
 # SEARCH FOR AN EVENT #
 @app.route('/search/', methods=['POST'])
