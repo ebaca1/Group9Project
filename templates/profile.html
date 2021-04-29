@@ -33,6 +33,7 @@
                 {% endif %}
         <br><br>
 
+        {% if my_event %}
 		<h3>My Events</h3>
         <table>
             <tr>
@@ -40,7 +41,7 @@
                 <th>Date</th>
                 <th>Description</th>
             </tr>
-            {% for event in my_events %}
+            {% for event in my_event %}
             <tr>
                 <td><a href="{{ url_for('event', event_id=event.id) }}">{{ event.title }}</a></td>
                 <td>{{ event.date }}</td>
@@ -58,6 +59,7 @@
             </tr>
             {% endfor %}
         </table>
+        {% endif %}
 </div>
 </body>
     </body>
