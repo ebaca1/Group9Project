@@ -23,7 +23,7 @@ from forms import LoginForm
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///event_app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'SE3155'
-app.config["IMAGE_UPLOADS"] = ""
+app.config["IMAGE_UPLOADS"] = "static"
 #  Bind SQLAlchemy db object to this Flask app
 db.init_app(app)
 # Setup models
@@ -270,7 +270,6 @@ def sort(event_id):
     sorted_event = my_event.sort(reverse=True)
 
     return render_template("index.html")
-    
 
 # SEARCH FOR AN EVENT #
 @app.route('/search/', methods=['POST'])
