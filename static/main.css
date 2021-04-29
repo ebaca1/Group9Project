@@ -45,3 +45,24 @@ th[scope="col"] {
 td {
     text-align: center;
 }
+
+nav {
+  list-style-type: none;
+  margin-bottom: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #a1afcc;
+}
+
+nav a {
+    float: left;
+    display: block;
+    color: black;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    background-color: #656f85;
+    color: white;
+}
