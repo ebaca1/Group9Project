@@ -17,32 +17,67 @@
 		</nav>
 
         <div class="body">
-			<h1>Event - {{ event.title }}</h1>
+			<h1>{{ event.title }}</h1>
 
 			<img>
-
-			<p><strong>Title: </strong>{{ event.title }}</p>
+			<img src="/{{ event.image_name }}">
+			<p><strong>Rating:</strong>
+				{% if event.rating <= -25%}
+					🗑️ Bad 🗑️
+				{% endif %}
+				{% if event.rating <= -5  and event.rating > -25 %}
+					Poor 👎
+				{% endif %}
+				{% if event.rating == 0 %}
+					Neutral
+				{% endif %}
+				{% if event.rating >= 5 and event.rating < 25 %}
+					Good 👍
+				{% endif %}
+				{% if event.rating >= 25 and event.rating < 50 %}
+					💯 Excellent 💯
+				{% endif %}
+				{% if event.rating >= 50 %}
+					🔥 Hot 🔥
+				{% endif %}
+			</p>
 			<p><strong>Date: </strong>{{ event.date }}</p>
 			<p><strong>Description: </strong>{{ event.text }}</p>
-			<img src="/{{ event.image_name }}">
+
 
 			<!--Buttons-->
 			<tr>
 				<td>
-			<form action="{{ url_for('index') }}">
-				<input type="submit" value="Home">
-			</form>
+
 					{% if rsvp %}
 					<p><strong>You've Rsvp'd ✓</strong></p>
 					{% else %}
 			<form action="{{ url_for('rsvp', event_id=event.id) }}" method="post">
-				<input type="submit" value="Rsvp">
+				<input type="submit" value="Rsvp to Event">
 			</form>
 					{% endif %}
 
-			<form action="{{ url_for('report', event_id=event.id) }}" method="post">
-				<input type="submit" value="Report">
-			</form>
+					{% if rating %}
+					<p><strong>You've Rated This Event ✓</strong></p>
+					{% else %}
+					<fieldset>
+				  		<legend>Event Feedback</legend>
+						<form action="{{ url_for('up', event_id=event.id) }}" method="post">
+						<input type="submit" value="Thumbs Up 👍">
+						</form>
+						<form action="{{ url_for('down', event_id=event.id) }}" method="post">
+						<input type="submit" value="Thumbs Down 👎">
+						</form>
+					</fieldset>
+					{% endif %}
+
+					<form action="{{ url_for('index') }}">
+					<input type="submit" value="Events Home">
+					</form>
+					
+					<form action="{{ url_for('report', event_id=event.id) }}" method="post">
+					<input type="submit" value="Report Event">
+					</form>
 				</td>
 			</tr>
 		</div>

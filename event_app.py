@@ -15,6 +15,7 @@ from database import db
 from models import Event as Event
 from models import User as User
 from models import Rsvp as Rsvp
+from models import Rating as Rating
 from flask import session
 import bcrypt
 from forms import RegisterForm
@@ -123,7 +124,7 @@ def new():
             image_name = image_name.replace("\\", "/")
             image.save(image_name)
             print("Image saved")
-            new_record = Event(title, text, date, session['user_id'], image_name, report_count=0)
+            new_record = Event(title, text, date, session['user_id'], image_name, rating=0, report_count=0)
             db.session.add(new_record)
             db.session.commit()
 
@@ -172,9 +173,9 @@ def event(event_id):
         # retrieve event from database
         a_event = db.session.query(Event).filter_by(id=event_id).one()
         a_rsvp = db.session.query(Rsvp).filter(Rsvp.event_id == event_id, Rsvp.user_id == session['user_id']).all()
-        print(event_id, session['user_id'])
+        a_rating = db.session.query(Rating).filter(Rating.event_id == event_id, Rating.user_id == session['user_id']).all()
 
-        return render_template("event.html", event=a_event, user=session['user'], rsvp=a_rsvp)
+        return render_template("event.html", event=a_event, user=session['user'], rsvp=a_rsvp, rating = a_rating)
     else:
         return redirect(url_for('login'))
 
@@ -263,6 +264,49 @@ def report(event_id):
 
         # Go to Report.html page
         return render_template("report.html", event=reported_event, user=session['user'])
+    else:
+        # User is not in session, redirect to login
+        return redirect(url_for('login'))
+
+
+@app.route('/index/<event_id>/up', methods=['GET', 'POST'])
+def up(event_id):
+    if session.get('user'):
+        # Retrieve event from database
+        a_event = db.session.query(Event).filter_by(id=event_id).one()
+        a_rsvp = db.session.query(Rsvp).filter(Rsvp.event_id == event_id, Rsvp.user_id == session['user_id']).all()
+        a_rating = db.session.query(Rating).filter(Rating.event_id == event_id,
+                                                   Rating.user_id == session['user_id']).all()
+        # update event rating
+        a_event.rating = a_event.rating + 5
+        # create new rating and update db
+        new_rating = Rating(session['user_id'], a_event.id, 5)
+        db.session.add(new_rating)
+        db.session.commit()
+
+        # return to individual event page
+        return render_template("event.html", event=a_event, user=session['user'], rsvp=a_rsvp, rating=a_rating)
+    else:
+        # User is not in session, redirect to login
+        return redirect(url_for('login'))
+
+@app.route('/index/<event_id>/down', methods=['GET', 'POST'])
+def down(event_id):
+    if session.get('user'):
+        # Retrieve event from database
+        a_event = db.session.query(Event).filter_by(id=event_id).one()
+        a_rsvp = db.session.query(Rsvp).filter(Rsvp.event_id == event_id, Rsvp.user_id == session['user_id']).all()
+        a_rating = db.session.query(Rating).filter(Rating.event_id == event_id,
+                                                   Rating.user_id == session['user_id']).all()
+        # update event rating
+        a_event.rating = a_event.rating - 5
+        # create new rating and update db
+        new_rating = Rating(session['user_id'], a_event.id, -5)
+        db.session.add(new_rating)
+        db.session.commit()
+
+        # return to individual event page
+        return render_template("event.html", event=a_event, user=session['user'], rsvp=a_rsvp, rating=a_rating)
     else:
         # User is not in session, redirect to login
         return redirect(url_for('login'))
