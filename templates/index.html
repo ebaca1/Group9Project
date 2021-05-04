@@ -53,6 +53,7 @@
             </table>
 
             <br><br>
+            {% if my_events %}
             <h3>My Events</h3>
                 <table>
                     <tr>
@@ -77,6 +78,7 @@
                         </td>
                     </tr>
                     {% endfor %}
+                    {% endif %}
                 </table>
         </div>
     </body>
