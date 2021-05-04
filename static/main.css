@@ -66,3 +66,9 @@ nav a:hover {
     background-color: #656f85;
     color: white;
 }
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
