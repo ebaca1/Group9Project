@@ -6,7 +6,7 @@ body {
     margin: auto;
     margin-top: 2%;
     margin-bottom: 5%;
-    width: 50%;
+    width: 75%;
     border-style: solid;
     border-color: #a8a8a8;
     border-radius: 8px;
@@ -67,8 +67,9 @@ nav a:hover {
     color: white;
 }
 .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    border-radius: 8px;
 }
