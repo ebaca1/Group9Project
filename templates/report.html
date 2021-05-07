@@ -4,17 +4,21 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Report Event</title>
-        <!-- styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     </head>
 
     <body>
 		<nav>
-		<!-- Navigation -->
+		    <a href="{{ url_for('index') }}">Events</a>
+            <a href="{{ url_for('new') }}">Create Event</a>
+            <a href="{{ url_for('profile') }}">My Account</a>
+            <a href="{{url_for('logout')}}">Logout</a>
 		</nav>
 
-        <!-- Body -->
-		<h3>Report Event</h3>
-        <p>Tell us why you are reporting this event.</p>
+        <div class="body">
+		    <h1>Report Event</h1>
+            <p>Tell us why you are reporting this event.</p>
+
             <form action="{{ url_for('index') }}">
                 <input type="submit" value="Event describes violent behavior">
             </form>
@@ -30,6 +34,7 @@
             <form action="{{ url_for('index') }}">
                 <input type="submit" value="Event description uses profanity or offensive language">
             </form>
+        </div>
 
     </body>
 </html>

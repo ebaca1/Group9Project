@@ -17,16 +17,20 @@ form {
 
 .formwrapper {
   margin: auto;
-  position: relative;
-  background: white;
-  width: 350px;
-  box-shadow: 0 0 5px rgba(65, 67, 144, 0.1);
-  padding: 10px;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    width: 25%;
+    border-style: solid;
+    border-color: #a8a8a8;
+    border-radius: 8px;
+    box-shadow: 5px 10px 18px #888888;
+    padding: 3%;
+    background-color: white;
 }
 
 label {
   font-size: .9em;
-  color: blue;
+  color: black;
   margin-bottom: 3px;
   display: block;
   font-weight: 300;
@@ -65,20 +69,19 @@ textarea:focus {
 }
 
 input[type="submit"] {
-  background: blue;
+  background: #7da7e3;
   border: 0;
   color: white;
-  border-radius: 2px;
+  border-radius: 6px;
   margin-top: 15px;
   font-weight: 400;
-  border: 1px solid blue;
   transition: all .3s ease-out;
 }
 
 input[type="submit"]:hover {
   cursor: pointer;
-  background: white;
-  color: blue;
+  background: #a1afcc;
+  color: white;
 }
 
 .success-wrapper {

@@ -44,7 +44,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', [
         DataRequired(message="Please enter a password.")])
 
-    submit = SubmitField('Submit')
+    submit = SubmitField('Log In')
 
     def validate_email(self, field):
         if db.session.query(User).filter_by(email=field.data).count() == 0:

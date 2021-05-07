@@ -16,17 +16,17 @@ body {
 }
 
 h1 {
-    color: #1616c7;
+    color: #075dd9;
     text-align: center;
 }
 
 h2 {
-    color: #3232f0;
+    color: #075dd9;
     text-align: center;
 }
 
 h3 {
-    color: #3232f0;
+    color: #075dd9;
     text-align: center;
 }
 
@@ -38,12 +38,16 @@ table {
     margin-top: 0px;
 }
 
-th[scope="col"] {
-    text-align: center;
+tr {
+    text-align: left;
 }
 
-td {
-    text-align: center;
+.title {
+    width: 20%;
+}
+
+.date {
+    width: 12%
 }
 
 nav {
@@ -66,10 +70,34 @@ nav a:hover {
     background-color: #656f85;
     color: white;
 }
+
 .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 30%;
     border-radius: 8px;
+}
+
+input[type="submit"] {
+  background-color: #7da7e3;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  padding: 6px 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 1%
+}
+
+input[type="submit"]:hover {
+  cursor: pointer;
+  background: #a1afcc;
+  color: white;
+}
+
+.custom-file {
+    padding-top: 0.75%
 }
